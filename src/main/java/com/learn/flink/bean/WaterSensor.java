@@ -55,4 +55,11 @@ public class WaterSensor {
     public Long ts;
     public Integer vc;
 
+    public void setTs(Long ts) {
+        this.ts = ts;
+    }
+
+    public void setVc(Integer vc) {
+        this.vc = vc;
+    }
 }
