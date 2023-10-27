@@ -27,6 +27,20 @@ public class SQLDemo {
 
         Table sumTable = tableEnv.sqlQuery("select id, sum(vc) from sensor group by id");
 
+        tableEnv.executeSql("CREATE TABLE WaterSensor (\n" +
+                "  id STRING,\n" +
+                "  ts BIGINT,\n" +
+                "  vc INT,\n" +
+                "  PRIMARY KEY (id) NOT ENFORCED\n" +
+                ") WITH (\n" +
+                "   'connector' = 'jdbc',\n" +
+                "   'url' = 'jdbc:mysql://localhost:3307/flink_training',\n" +
+                "   'username'  = 'root' \n," +
+                "   'password'  = 'password' \n," +
+                "   'table-name' = 'water_sensors'\n" +
+                ");");
+
+        tableEnv.executeSql("insert into WaterSensor select * from sensor");
 
         //创建映射表
         tableEnv.executeSql("CREATE TABLE MyUserTable (\n" +
