@@ -1,4 +1,4 @@
-package com.learn.flink.operator;
+package com.learn.flink.transform;
 
 import com.learn.flink.bean.WaterSensor;
 import org.apache.flink.api.common.functions.MapFunction;
