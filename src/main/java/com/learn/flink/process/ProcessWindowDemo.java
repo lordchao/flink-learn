@@ -56,7 +56,8 @@ public class ProcessWindowDemo {
                 //  开窗聚合后，就是普通的流，没有了窗口信息，需要自己打上窗口的标记 windowEnd
                 .keyBy(sensor -> sensor.vc)
                 .window(SlidingEventTimeWindows.of(Time.seconds(10), Time.seconds(5)))
-                .aggregate(new VcCount(), new WindowResult()).keyBy(result -> result.f2)
+                .aggregate(new VcCount(), new WindowResult())
+                .keyBy(result -> result.f2)
                 .process(new TopN(2))
                 .print();
         env.execute();
