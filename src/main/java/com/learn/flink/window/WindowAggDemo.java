@@ -39,7 +39,7 @@ public class WindowAggDemo {
                     }
 
                     @Override
-                    //窗口出发时输出最终结果
+                    //窗口触发时输出最终结果
                     public String getResult(Integer accumulator) {
                         System.out.println("调用getResult方法");
                         return accumulator.toString();

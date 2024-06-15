@@ -25,6 +25,8 @@ import org.apache.flink.util.Collector;
  *
  *
  * 基于计数的窗口
+ * 没有会话窗口
+ * 滑动窗口每经过一个步长都有一个输出
  */
 public class WindowTypeDemo {
     static StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -35,7 +37,8 @@ public class WindowTypeDemo {
         env.socketTextStream("localhost", 7777)
                 .map(new WaterSensorMapFunction())
                 .keyBy(WaterSensor::getId)
-                .countWindow(5)
+                //.countWindow(5)/滚动
+                .countWindow(5,2)//滑动
                 .process(new ProcessWindowFunction<WaterSensor, String, String, GlobalWindow>() {
                     @Override
                     public void process(String s, ProcessWindowFunction<WaterSensor, String, String, GlobalWindow>.Context context, Iterable<WaterSensor> elements, Collector<String> out) throws Exception {
